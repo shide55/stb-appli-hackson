@@ -1,0 +1,27 @@
+{
+  "name": "STB-appli-Hackson",
+  "description": "お手伝い速報",
+  "version": "1",
+  "type": "privileged",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/style/icons/icon.png",    
+    "160": "/style/icons/icon.png",
+    "320": "/style/icons/icon4k.png"
+  },
+  "permissions": {
+    "pana-plugin":{},
+    "pana-server-url":{},
+    "tv":{},
+    "tcp-socket": {},
+    "wifi-manage": {},
+    "systemXHR": {"description": "Allows loading remote content"}
+  },
+  "default_locale": "ja-JP",
+  "locales": {
+    "ja-JP": {
+      "name":"STB-appli-Hackson",
+      "description": "お手伝い速報"
+    }
+  }
+}
