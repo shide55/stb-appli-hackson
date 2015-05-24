@@ -104,18 +104,14 @@ function TvSetFrameSize(rate) {
 
 function poringDevice() {
     
-    sendXHR(ipArray[1],2);
+    //sendXHR(ipArray[1],2);
     //runNotification(2);
     //alert('ip:'+ipArray[0]);
     //sendXHR(ipArray[0],1);
-    /*
     for (var i=0;i<ipArray.length;i++){
         //alert('ip:'+ipArray[i]);
         sendXHR(ipArray[i],i);
     }
-    */
-    
-    
 }
 
 function createChannelBannerDummy(idx) 
@@ -147,7 +143,8 @@ function sendXHR(ipaddress,idx) {
 
     //初期化
     xhr.open("GET", destination, true);
-
+    //xhr.statusText = "";
+    
     //ステータス変化イベント
     xhr.onreadystatechange = function () {
         console.log("xhr.readyState: " + xhr.readyState);
@@ -163,11 +160,10 @@ function sendXHR(ipaddress,idx) {
             if (xhr.status === 200) {
                 //正常完了
                 console.log("xhr.responseText: " + xhr.responseText);
-                //createChannelBannerDummy(idx);
-                if(xhr.statusText === 'OK'){
+                if(xhr.responseText === 'NG'){
                     runNotification(idx+1);
+                    xhr.statusText = "";
                 }
-                //setTimeout('poringDevice()',PORING_TIME_CYCLE)
             } else {
                 //異常完了
                 console.error("xhr.statusText: " + xhr.statusText);
@@ -192,8 +188,10 @@ function sendXHR(ipaddress,idx) {
 function runNotification(num){
     //チャイム音再生
     //var oto = document.getElementById('sound-file');
-    //var oto = new Audio('chime.ogg');
-    //oto.play();
+    
+    var ado = new Audio('http://' + ipArray[num -1] + '/sounds/chime.mp3');
+    ado.loop = false;
+    ado.play();
     
     //$("#sound-file").get(0).play();
 
@@ -211,6 +209,9 @@ function runNotification(num){
             break;
     }
 
+    $("#news").css("background-image", "url('../images/title.png')");
+    
+    
     //ニュース点滅
     $("#news").animate({opacity:1}, {duration: 100})
     .delay(1000)
