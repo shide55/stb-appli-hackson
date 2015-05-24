@@ -104,7 +104,8 @@ function TvSetFrameSize(rate) {
 
 function poringDevice() {
     
-    runNotification(2);
+    sendXHR(ipArray[1],2);
+    //runNotification(2);
     //alert('ip:'+ipArray[0]);
     //sendXHR(ipArray[0],1);
     /*
@@ -140,7 +141,7 @@ function createChannelBannerDummy(idx)
 function sendXHR(ipaddress,idx) {
 
     //alert('ip:'+ipaddress);
-    var destination = "http://" + ipaddress + "/put?power=1",
+    var destination = "http://" + ipaddress + "/xhr?power=1",
         //{mozSystem: true}というオブジェクトを渡さないとクロスドメインで怒られる
         xhr = new XMLHttpRequest({mozSystem: true});
 
@@ -163,8 +164,9 @@ function sendXHR(ipaddress,idx) {
                 //正常完了
                 console.log("xhr.responseText: " + xhr.responseText);
                 //createChannelBannerDummy(idx);
-                alert('test');
-                runNotification(idx+1);
+                if(xhr.statusText === 'OK'){
+                    runNotification(idx+1);
+                }
                 //setTimeout('poringDevice()',PORING_TIME_CYCLE)
             } else {
                 //異常完了
