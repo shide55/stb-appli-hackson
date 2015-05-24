@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <!--  This file should NOT be developped by partner -->
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style/tv.css" />
-    <script defer type="text/javascript" src="js/util.js" charset="utf-8"></script>
-    <script defer type="text/javascript" src="js/tv_api.js" charset="utf-8"></script>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style/tv.css" />
+
+<script defer type="text/javascript" src="js/jquery-2.1.4.min.js" charset="utf-8"></script>
+    
+<script defer type="text/javascript" src="js/util.js" charset="utf-8"></script>
+<script defer type="text/javascript" src="js/tv_api.js" charset="utf-8"></script>
 
 <!--    <script defer type="text/javascript" src="js/answer/util.js" charset="utf-8"></script> -->
 <!--    <script defer type="text/javascript" src="js/answer/tv_api1.js" charset="utf-8"></script> -->
@@ -15,9 +18,16 @@
 <!--    <script defer type="text/javascript" src="js/answer/tv_api5.js" charset="utf-8"></script> -->
 <!--    <script defer type="text/javascript" src="js/answer/tv_api6.js" charset="utf-8"></script> -->
     
-  </head>
-  <body>
-    <div id="channel-banner" class="channel-frame"></div>
-    <video id="tv" class="tv-frame" autoplay></video>
-  </body>
+</head>
+<body>
+<div id="video-area">
+  <div id="channel-banner"></div>
+    <div id="news"></div>
+  <video id="tv" autoplay></video>
+</div>
+<div> </div>
+<audio id="sound-file" preload="auto">
+    <source src="sounds/chime.ogg" type="audio/ogg">
+</audio>
+</body>
 </html>

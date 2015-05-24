@@ -4,7 +4,7 @@
 'use strict';
 
 var ipArray = ['192.168.109.36','192.168.109.85'];
-var PORING_TIME_CYCLE = 3000;
+var PORING_TIME_CYCLE = 5000;
 var intervalID;
 
 function dbglog(msg) {
@@ -103,9 +103,18 @@ function TvSetFrameSize(rate) {
 }
 
 function poringDevice() {
+    
+    runNotification(2);
+    //alert('ip:'+ipArray[0]);
+    //sendXHR(ipArray[0],1);
+    /*
     for (var i=0;i<ipArray.length;i++){
+        //alert('ip:'+ipArray[i]);
         sendXHR(ipArray[i],i);
     }
+    */
+    
+    
 }
 
 function createChannelBannerDummy(idx) 
@@ -130,6 +139,7 @@ function createChannelBannerDummy(idx)
 */
 function sendXHR(ipaddress,idx) {
 
+    //alert('ip:'+ipaddress);
     var destination = "http://" + ipaddress + "/put?power=1",
         //{mozSystem: true}というオブジェクトを渡さないとクロスドメインで怒られる
         xhr = new XMLHttpRequest({mozSystem: true});
@@ -152,7 +162,9 @@ function sendXHR(ipaddress,idx) {
             if (xhr.status === 200) {
                 //正常完了
                 console.log("xhr.responseText: " + xhr.responseText);
-                createChannelBannerDummy(idx);
+                //createChannelBannerDummy(idx);
+                alert('test');
+                runNotification(idx+1);
                 //setTimeout('poringDevice()',PORING_TIME_CYCLE)
             } else {
                 //異常完了
@@ -170,4 +182,78 @@ function sendXHR(ipaddress,idx) {
     xhr.send(null);
     console.log("XMLHttpRequest.send " + destination);
 }
+
+/*
+ * ニュース速報を出す.
+ * @return num 鍋の場合1、洗濯機の場合2
+ */
+function runNotification(num){
+    //チャイム音再生
+    //var oto = document.getElementById('sound-file');
+    //var oto = new Audio('chime.ogg');
+    //oto.play();
+    
+    //$("#sound-file").get(0).play();
+
+    var textImage = "";
+    var bgImage = "";
+    //numによって画像差し替え
+    switch (num){
+        case 1:
+            textImage = "../images/text-pot.png";
+            bgImage = "../images/bg-pot.jpg"; 
+            break;
+        case 2:
+            textImage = "../images/text-laundry.png";
+            bgImage = "../images/bg-laundry.jpg"; 
+            break;
+    }
+
+    //ニュース点滅
+    $("#news").animate({opacity:1}, {duration: 100})
+    .delay(1000)
+    .animate({opacity:0}, {duration: 100})
+    .delay(1000)
+    .animate({opacity:1}, {duration: 100})
+    .delay(1000)
+    .animate({opacity:0}, {duration: 100})
+    .delay(1000)
+    .animate({opacity:1}, {duration: 100})
+    .delay(2000)
+    .animate({opacity:1}, {duration: 100, complete:function(){ 
+        //テキスト差し替え
+        $("#news").css("background-image", "url(" + textImage + ")");
+        //背景差し替え
+        $("body").css("background-image", "url(" + bgImage + ")");
+        //2秒後に映像を縮小
+        setTimeout(function(){
+            if(timeLimit == 0){
+                $("#video-area").addClass('scale-down'); 
+                $("#video-area").removeClass('scale-up');
+                //戻すタイミングを20秒追加
+                timeLimit = timeLimit + 20;
+            }
+        },2000);
+    }})
+
+}
+
+//毎秒戻すタイミングをチェック
+setInterval(checkTimeOut,1000);
+
+var timeLimit = 0;
+
+function checkTimeOut(){
+    if(timeLimit > 1){
+        timeLimit --;
+    }else if(timeLimit == 1){
+        //映像拡大
+        $("#video-area").removeClass('scale-down');
+        $("#video-area").addClass('scale-up');
+        //ニュース消す
+        $("#news").css({opacity:0});
+        timeLimit --;
+    }
+}
+
 
