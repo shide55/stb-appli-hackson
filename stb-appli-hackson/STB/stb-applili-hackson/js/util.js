@@ -136,7 +136,6 @@ function createChannelBannerDummy(idx)
 */
 function sendXHR(ipaddress,idx) {
 
-    //alert('ip:'+ipaddress);
     var destination = "http://" + ipaddress + "/xhr?power=1",
         //{mozSystem: true}というオブジェクトを渡さないとクロスドメインで怒られる
         xhr = new XMLHttpRequest({mozSystem: true});
@@ -209,8 +208,8 @@ function runNotification(num){
             break;
     }
 
+    //速報タイトル
     $("#news").css("background-image", "url('../images/title.png')");
-    
     
     //ニュース点滅
     $("#news").animate({opacity:1}, {duration: 100})
