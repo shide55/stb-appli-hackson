@@ -15,7 +15,10 @@
     "tv":{},
     "tcp-socket": {},
     "wifi-manage": {},
-    "systemXHR": {"description": "Allows loading remote content"}
+    "systemXHR": {"description": "Allows loading remote content"},
+    "audio-channel-content": {},
+    "audio-channel-normal": {},
+    "audio-channel-notification": {}
   },
   "default_locale": "ja-JP",
   "locales": {
